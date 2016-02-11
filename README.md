@@ -213,7 +213,7 @@ The Automatic SDK supports the streaming of a [subset of ELM 327](supported_comm
 
 ## 5. <a name="supported_commands"></a>Supported ELM327 Commands
 
-The Automatic Streaming SDK supports **only** a subset of the full ELM 327 command set.  The full supported command set is [available here](https://docs.google.com/document/d/1ZYFkG3V88y0ldq-r_ngGrTYpdaQoZHMr2CFco42GzD8), and a highly condensed list is available below.
+The Automatic Streaming SDK supports **only** a subset of the full ELM 327 command set.  The full supported command set is [available here](https://developer.automatic.com/api-reference/#streaming-api), and a highly condensed list is available below.
 
 - These commands work normally:
 
