@@ -1,0 +1,38 @@
+1.0 RC      02/11/2016
+----------------
+1. Enforce Automatic core app requirement when calling connectElmStreaming()
+2. Add isServiceAuthenticated() public api
+
+
+0.9.10      01/22/2016
+----------------
+1. Fix a RuntimeException in authentication flow
+2. Remove default ServiceBroadcastReceiver in the SDK
+3. Update vehicle POJO class
+
+
+0.9.9
+----------------
+1. Add public method connectElmStreaming(java.lang.String mac, ELMSocket.ElmSocketCallback elmSocketCallback, boolean clientHandleBtSocket) in Automatic class.
+2. Add public interface ServiceBindingCallback
+
+
+0.9.8
+----------------
+1. Fix a bug in ELM authentication.
+
+
+0.9.7
+----------------
+1. Check and ask for GET_ACCOUNTS(READ_CONTACTS) permission during auto login for Android 6.0+.
+2. Fall back to web login if auto login failed.
+
+
+0.9.6
+----------------
+A LOT OF BREAKING CHANGES!!!
+1. Change almost all static methods to instance methods in the Automatic class.
+2. No longer provide raw BT socket for ELM streaming. A send command/callback mechanism is used instead. 3rd party app developers no longer need to maintain a raw BT socket themselves.
+(Ok this is not true. Raw BT socket for ELM streaming is still supported)
+3. Decouple ELM streaming connection from login. ELM connection/authentication is now a separate step after Automatic account login.
+Refer to the sample app and java doc for more details.
