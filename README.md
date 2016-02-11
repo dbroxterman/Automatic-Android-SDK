@@ -140,24 +140,24 @@ The Automatic SDK supports the streaming of a [subset of ELM 327](supported_comm
 
         ```java
 				// bind to the Automatic core app
-Automatic.get().bindService(new ServiceBindingCallback() {
-	@Override public void onBindingResponse(boolean success, SdkError sdkError) {
-			if (success) {
-				// successfully bound and authenticated
+				Automatic.get().bindService(new ServiceBindingCallback() {
+					@Override
+					public void onBindingResponse(boolean success, SdkError sdkError) {
+						if (success) {
+							// successfully bound and authenticated
+							...
+						}
+					}
+				});
 				...
-			}
-		}
-});
-...
-...
-// once bound and authenticated
-if (Automatic.get().isServiceAuthenticated()) {
-		// set callback listener
-		Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
-		// send request to the Automatic core app through service binding
-		Automatic.get().queryConnectedAdapterInfo();
-}
-
+				...
+				// once bound and authenticated
+				if (Automatic.get().isServiceAuthenticated()) {
+					// set callback listener
+					Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
+					// send request to the Automatic core app through service binding
+					Automatic.get().queryConnectedAdapterInfo();
+				}
         ```
 
     - Or find adapter mac address in the Bluetooth bonded device list. Refer to `findMacFromList()` in the sample app:
