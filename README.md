@@ -38,7 +38,7 @@ We can't wait to see what you build. Let's get to it!
 
 ## 2. <a name="adding_the_sdk"></a>Adding the SDK to your Android App
 
-1. Add the SDK aar library to your project. Add the following line to your `build.gradle`, within your `dependencies {}` block:
+1. [Android Studio](http://developer.android.com/sdk/index.html) is the preferred IDE to develop Android app. Add the SDK aar library to your project. Add the following line to your `build.gradle`, within your `dependencies {}` block:
 
 	```gradle
 	compile(name:'automatic-android-sdk-release', ext:'aar')
@@ -139,24 +139,24 @@ The Automatic SDK supports the streaming of a [subset of ELM 327](supported_comm
     - You can ask the Automatic core app for the mac address of the currently connected adapter through service binding. Please refer to sample app for more details:
 
         ```java
-        // bind to the Automatic core app
-				Automatic.get().bindService(new ServiceBindingCallback() {
-            @Override public void onBindingResponse(boolean success, SdkError sdkError) {
-                if (success) {
-                		// successfully bound and authenticated
-										...
-                };
-            }
-        });
+				// bind to the Automatic core app
+Automatic.get().bindService(new ServiceBindingCallback() {
+	@Override public void onBindingResponse(boolean success, SdkError sdkError) {
+			if (success) {
+				// successfully bound and authenticated
 				...
-				...
-				// once bound and authenticated
-				if (Automatic.get().isServiceAuthenticated()) {
-					// set callback listener
-					Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
-					// send request to the Automatic core app through service binding
-					Automatic.get().queryConnectedAdapterInfo();
-				}
+			}
+		}
+});
+...
+...
+// once bound and authenticated
+if (Automatic.get().isServiceAuthenticated()) {
+		// set callback listener
+		Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
+		// send request to the Automatic core app through service binding
+		Automatic.get().queryConnectedAdapterInfo();
+}
 
         ```
 
