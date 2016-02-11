@@ -4,7 +4,7 @@
 2. [Adding the SDK to your Android App](#adding_the_sdk)
 3. [Initialization + Authentication](#init_and_auth)
 4. [ELM Streaming](#streaming_sdk)
-5. [Supported ELM327 Commands](#supported_commands) 
+5. [Supported ELM327 Commands](#supported_commands)
 6. [Receiving Real-Time Events](#events)
 7. [Testing With An ECU Simulator](#simulator)
 8. [Making REST API Calls](#rest_api)
@@ -34,42 +34,40 @@ We can't wait to see what you build. Let's get to it!
 ## 1. <a name="creating_an_app"></a>Creating an App
 
 - Each SDK app must first create an app on the [Automatic Developer site][developers].
-- **Important:** Currently, apps must have the Client Type field set to "Public / Native" or authentication will fail. 
+- **Important:** Currently, apps must have the Client Type field set to "Public / Native" or authentication will fail.
 
 ## 2. <a name="adding_the_sdk"></a>Adding the SDK to your Android App
 
-1. Add the following line to your `build.gradle`, within your `dependencies {}` block:
-	
+1. Add the SDK aar library to your project. Add the following line to your `build.gradle`, within your `dependencies {}` block:
+
 	```gradle
-	compile ('com.automatic:android-sdk:0.3') {
-		transitive = true
-	}
+	compile(name:'automatic-android-sdk-release', ext:'aar')
 	```
 
 2. Add your client id (found within the Automatic [Developer Apps Manager](https://developer.automatic.com/dashboard))  to your AndroidManifest.xml, inside your `<application>` tag:
-	
+
 	```xml
-	<meta-data android:name="com.automatic.sdk.client_id" android:value="your_client_id" />	
+	<meta-data android:name="com.automatic.sdk.client_id" android:value="your_client_id" />
 	```
 
 ## 3. <a name="init_and_auth"></a>Initialization + Authentication
 
 1. Before your app can access any of the SDKs features, your user must authenticate with Automatic.  To allow them to do this from inside your app, you must include a "Login With Automatic" button to your app's UI:
-	
+
 	```xml
 	<com.automatic.android.sdk.LoginButton
     	android:id="@+id/automatic_login"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content" />
-	``` 
+	```
 
 2. Initialize the SDK, ideally within an Application context or any other context such as your Launcher which is run every time your app loads.  Pass it the scopes which you have access to.  Note that if your scopes are invalid, you will receive an "Invalid Request" upon authorizing.  To receive "pushed" events such as Ignition On / Off, Location, be sure to call `useServiceBinding()`:
-	
+
 	```java
 	// Scopes that your application has registered with Automatic on the Automatic developer apps manager page.
 	public static final Scope[] scopes = {Scope.Public, Scope.VehicleVin, Scope.Trips, Scope.Location, Scope.VehicleEvents, Scope.VehicleProfile, Scope.UserProfile, Scope.Behavior, Scope.AdapterBasic};
 	```
-	
+
 	```java
 	Automatic.initialize(
         new Automatic.Builder(this)
@@ -90,9 +88,9 @@ We can't wait to see what you build. Let's get to it!
     ```
 
 	By default `autoLogIn` is set to `true`.
-	
+
 	Set `autoLogIn` to `false` for web login, where user is presented a web view to enter their username and password:
-	
+
 	```java
     Automatic.initialize(
         new Automatic.Builder(this)
@@ -100,16 +98,16 @@ We can't wait to see what you build. Let's get to it!
             .autoLogIn(false)
             ... etc);
     ```
-	
+
 4. In the Activity you're using to handle the "Login With Automatic" flow, pass the SDK a context, and an implementation of `AutomaticLoginCallbacks`:
 	- Login using the "Login With Automatic" button. Make a call to `addLoginButton()` and pass in a reference to your LoginButton:
-	
+
         ```java
         Automatic.get().addLoginButton(mLoginButton, mYourContext, AutomaticLoginCallbacks);
         ```
-	
+
 	- You can also login without the login button:
-	
+
         ```java
         // pass in a callback to handle success / failure
         Automatic.get().setLoginCallbackListener(new AutomaticLoginCallbacks() {
@@ -124,9 +122,9 @@ We can't wait to see what you build. Let's get to it!
             });
         Automatic.get().loginWithAutomatic(mYourContext);
         ```
-        
+
         Or simply:
-        
+
         ```java
         Automatic.get().loginWithAutomatic(mYourContext, AutomaticLoginCallbacks);
         ```
@@ -139,29 +137,39 @@ The Automatic SDK supports the streaming of a [subset of ELM 327](supported_comm
 
 1. Make sure you've completed [Step 3](#init_and_auth) above. Now you need to find out the BT mac address of the adapter.
     - You can ask the Automatic core app for the mac address of the currently connected adapter through service binding. Please refer to sample app for more details:
-    
+
         ```java
         // bind to the Automatic core app
-        Automatic.get().bindService();
-        ...
-        bindService() is async, wait a little bit 
-        ...
-        // set callback listener
-        Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
-        // send request to the Automatic core app through service binding
-        Automatic.get().queryConnectedAdapterInfo();
+				Automatic.get().bindService(new ServiceBindingCallback() {
+            @Override public void onBindingResponse(boolean success, SdkError sdkError) {
+                if (success) {
+                		// successfully bound and authenticated
+										...
+                };
+            }
+        });
+				...
+				...
+				// once bound and authenticated
+				if (Automatic.get().isServiceAuthenticated()) {
+					// set callback listener
+					Automatic.get().setAutomaticCoreAppQueryListener(mAutomaticCoreAppQueryListener);
+					// send request to the Automatic core app through service binding
+					Automatic.get().queryConnectedAdapterInfo();
+				}
+
         ```
-    
+
     - Or find adapter mac address in the Bluetooth bonded device list. Refer to `findMacFromList()` in the sample app:
-    
+
         ```java
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         ```
       In case the phone is paired with multiple Automatic adapters therefore multiple similar items in bonded device list. The Bluetooth naming convention of Automatic adapter is "XX-Automatic Adapter", where XX is the first two letters of the 6-char pin on the back of the adapter. Your app could display the BT bonded list to let user pick the correct one, or let user enter the 6-char pin.  
-     
-2. Call `connectElmStreaming(String mac, ELMSocket.ElmSocketCallback elmSocketCallback)` with adapter mac address and implement `ELMSocket.ElmSocketCallback()` to receive the ELMSocket. ELMSocket handles I/O with `sendCommand()` and a `CommandCallback`. 
- 
+
+2. Call `connectElmStreaming(String mac, ELMSocket.ElmSocketCallback elmSocketCallback)` with adapter mac address and implement `ELMSocket.ElmSocketCallback()` to receive the ELMSocket. ELMSocket handles I/O with `sendCommand()` and a `CommandCallback`.
+
      ```java
      Automatic.get().connectElmStreaming(mAdapterMac, new ELMSocket.ElmSocketCallback() {
                 @Override
@@ -185,13 +193,13 @@ The Automatic SDK supports the streaming of a [subset of ELM 327](supported_comm
      ```
 
 3. If client app prefers to handle raw BT socket I/O themselves, call `connectElmStreaming(String mac, ELMSocket.ElmSocketCallback elmSocketCallback, boolean clientHandleBtSocket)` then get the raw BT socket from ELMSocket object.
-    
+
     ```java
     Automatic.get().connectElmStreaming(mAdapterMac, new ELMSocket.ElmSocketCallback() {
                 @Override
                 public void onSocketAuthenticated(ELMSocket elmSocket) {
-                    // get the raw BT socket and handle I/O in the client 
-                    BluetoothSocket btSocket = elmSocket.getSocket(); 
+                    // get the raw BT socket and handle I/O in the client
+                    BluetoothSocket btSocket = elmSocket.getSocket();
                     ...
                 }
                 ...
@@ -269,14 +277,14 @@ Testing ELM Streaming is best done with an ECU Simulator such as [this](https://
 
 - **Drive Mode:** Once the adapter is in Drive Mode, it will not go into sleep mode until it receives an ignition off signal. To send an "ignition off" signal to the adapter, you can turn speed to max and RPM to zero (just remember to reset them to their normal positions afterward.) If the adapter is not in drive mode, it may enter sleep mode to save battery.
 
-Using the above procedure, you should be able to 
+Using the above procedure, you should be able to
 
 ## 7. <a name="events"></a>Receiving Real-Time Events
 
 The Automatic SDK offers the ability for your app to bind to the main Automatic App (if it is installed on the user's phone), and receive instantaneous events from the car such as Ignition On / Off, MIL On / Off, Location Changed, Trip Ended, etc, which would normally only be available via [Webhook](https://developer.automatic.com/api-reference/#real-time-events).  This binding is managed by a simple set of callback interfaces which you can implement anywhere in your app.  Note: You must have the proper scope in order to receive events.  If you do not have the required scope, you will not receive events.
 
 1.  First ensure that you have Steps 2 and 3 above.  Then, register a BroadcastReceiver to filter for the action `com.automatic.ACTION_PING`, with the following code:
-	
+
 	```xml
 	<receiver android:name="com.your.app.YourBroadcastReceiver" >
 		<intent-filter>
@@ -284,7 +292,7 @@ The Automatic SDK offers the ability for your app to bind to the main Automatic 
 		</intent-filter>
 	</receiver>
 	```
-This receiver allows the Automatic App to wake your app up when an event occurs, such as Ignition On.  The best practice here is to invoke a Service which then handles subsequent events.  For an example of this behavior, please see the [Broadcast Receiver Example][broadcast-receiver-example] within the [SDK Sample App][sample-app].
+This receiver allows the Automatic App to wake your app up when an event occurs, such as Ignition On.  The best practice here is to invoke a Service which then handles subsequent events.  For an example of this behavior, please see the Broadcast Receiver example within the [SDK Sample App][sample-app].
 
 2. The Service will automatically handle binding and event pushing once you've registered the BroadcastReceiver, however if you need to bind / unbind from the service manually, you can call `Automatic.bindService()` or `Automatic.unbindService()`  You can also monitor the state of the Service Binding via a `ConnectionStateListener`.
 - For example code, please see the [SDK Sample App][sample-app]
@@ -311,5 +319,4 @@ Use `restApi()` to make calls against the REST API, for example:
 
 [developers]: https://developer.automatic.com
 [api-docs]: https://developer.automatic.com/documentation/
-[sample-app]: https://github.com/Automatic/automatic-android-sdk/tree/master/samples/AutomaticSDKSampleApp
-[broadcast-receiver-example]: https://github.com/Automatic/Automatic-Android-SDK/blob/master/samples/AutomaticSDKSampleApp/app/src/main/java/com/automatic/automaticsdksampleapp/MyBroadcastReceiver.java
+[sample-app]: https://github.com/Automatic/Automatic-Android-SDK/blob/master/AutomaticSDKSampleApp.zip
