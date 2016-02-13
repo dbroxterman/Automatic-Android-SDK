@@ -1,3 +1,8 @@
+1.0 RC-2    02/12/2016
+----------------
+1. Fix a bug in connectElmStreaming() flow 
+
+
 1.0 RC      02/11/2016
 ----------------
 1. Enforce Automatic core app requirement when calling connectElmStreaming()
