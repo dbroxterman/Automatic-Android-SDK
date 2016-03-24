@@ -1,0 +1,2 @@
+Q:  Why do I receive Error.NOT_LOGIN_ON_AUTOMATIC_APP in ElmSocketCallback.onFailure() callback?
+A:  In SDK 1.0 RC(02/11/2016) we added a check when calling connectElmStreaming() to enforce the requirement that user must login to the Automatic core app when using the streaming feature. When you get this error, simply prompt the user to login to the Automatic core app to resolve it.
