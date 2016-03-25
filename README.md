@@ -11,7 +11,12 @@
 
 ---
 
-**Note: Please file any bugs in the [Github Issues](https://github.com/Automatic/automatic-android-sdk/issues) tracker**
+**IMPORTANT LINKS**
+* **Sample App:** Check the [Sample App](https://github.com/Automatic/Automatic-Android-SDK/blob/master/AutomaticSDKSampleApp.zip) to see examples of code in use. 
+* **Documentation:** [Documentation lives here](https://github.com/Automatic/Automatic-Android-SDK/blob/master/public_apis.zip)
+* **FAQ:** Before emailing support, please [consult the FAQ](https://github.com/Automatic/Automatic-Android-SDK/wiki/FAQ).
+* **Found a Bug?** Please file it in the [Github Issues](https://github.com/Automatic/automatic-android-sdk/issues) tracker.
+* **Developer support**: developer@automatic.com
 
 ---
 
