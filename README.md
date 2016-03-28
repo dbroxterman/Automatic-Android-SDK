@@ -138,7 +138,7 @@ We can't wait to see what you build. Let's get to it!
 
 **Note:** Before using the Streaming SDK, you must have already created an Automatic account using the [core app](https://play.google.com/store/apps/details?id=com.automatic), and completed the Setup process with each adapter + phone pair that you plan to use.  Each device's firmware must also be updated to use version 1.0.124 or higher.
 
-The Automatic SDK supports the streaming of a [subset of ELM 327](supported_commands) commands over a standard BluetoothSocket.  You hand us credentials, and we had you back a live socket.  There are just a few changes needed to get started:
+The Automatic SDK supports the streaming of a [subset of ELM 327](#supported_commands) commands over a standard BluetoothSocket.  You hand us credentials, and we had you back a live socket.  There are just a few changes needed to get started:
 
 1. Make sure you've completed [Step 3](#init_and_auth) above. Now you need to find out the BT mac address of the adapter.
     - You can ask the Automatic core app for the mac address of the currently connected adapter through service binding. Please refer to sample app for more details:
