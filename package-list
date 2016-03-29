@@ -1,0 +1,7 @@
+com.automatic.android.sdk
+com.automatic.android.sdk.events
+com.automatic.android.sdk.exceptions
+com.automatic.net
+com.automatic.net.events
+com.automatic.net.responses
+com.automatic.net.servicebinding
