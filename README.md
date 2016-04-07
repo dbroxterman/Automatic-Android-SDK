@@ -136,7 +136,7 @@ We can't wait to see what you build. Let's get to it!
 
 ## 4. <a name="streaming_sdk"></a>ELM Streaming
 
-**Note:** Before using the Streaming SDK, you must have already created an Automatic account using the [core app](https://play.google.com/store/apps/details?id=com.automatic), and completed the Setup process with each adapter + phone pair that you plan to use.  Each device's firmware must also be updated to use version 1.0.124 or higher.
+**Note:** Before using the Streaming SDK, you must have already created an Automatic account using the [core app](https://play.google.com/store/apps/details?id=com.automatic), and completed the Setup process with each adapter + phone pair that you plan to use.  Each device's firmware must also be updated to use version 1.0.124 or higher. Gen 2 and above adapters are supported.
 
 The Automatic SDK supports the streaming of a [subset of ELM 327](#supported_commands) commands over a standard BluetoothSocket.  You hand us credentials, and we had you back a live socket.  There are just a few changes needed to get started:
 
