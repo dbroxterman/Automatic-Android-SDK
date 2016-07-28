@@ -81,30 +81,7 @@ We can't wait to see what you build. Let's get to it!
             ... etc);
 	```
 
-3. Auto login. If user has an Automatic account set up on their device, your app could login with that same Automatic account:
-
-	```java
-    Automatic.initialize(
-        new Automatic.Builder(this)
-            .addScopes(scopes)
-            .useServiceBinding()
-            .autoLogIn(true)
-            ... etc);
-    ```
-
-	By default `autoLogIn` is set to `true`.
-
-	Set `autoLogIn` to `false` for web login, where user is presented a web view to enter their username and password:
-
-	```java
-    Automatic.initialize(
-        new Automatic.Builder(this)
-            ...
-            .autoLogIn(false)
-            ... etc);
-    ```
-
-4. In the Activity you're using to handle the "Login With Automatic" flow, pass the SDK a context, and an implementation of `AutomaticLoginCallbacks`:
+3. In the Activity you're using to handle the "Login With Automatic" flow, pass the SDK a context, and an implementation of `AutomaticLoginCallbacks`:
 	- Login using the "Login With Automatic" button. Make a call to `addLoginButton()` and pass in a reference to your LoginButton:
 
         ```java
