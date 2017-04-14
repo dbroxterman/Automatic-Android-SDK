@@ -1,3 +1,20 @@
+1.2     4/14/2017
+-----------------
+1. Added token refresh support
+2. Updated dependencies
+3. Updated Sample SDK
+
+
+1.1.1   8/15/2016
+-----------------
+1. Fixed a bug causing a crash in logout()
+
+
+1.1     07/28/2016
+------------------
+1. AutoLogin has been removed due to compatibility concerns. This also means the account-related permissions are gone as well.
+
+
 1.0 RC-2    02/12/2016
 ----------------
 1. Fix a bug in connectElmStreaming() flow 
