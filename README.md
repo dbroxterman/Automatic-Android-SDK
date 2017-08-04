@@ -43,10 +43,19 @@ We can't wait to see what you build. Let's get to it!
 
 ## 2. <a name="adding_the_sdk"></a>Adding the SDK to your Android App
 
-1. [Android Studio](http://developer.android.com/sdk/index.html) is the preferred IDE to develop Android app. Add the SDK aar library to your project. Add the following line to your `build.gradle`, within your `dependencies {}` block:
+1. [Android Studio](http://developer.android.com/sdk/index.html) is the preferred IDE to develop Android app. Either import the provided .AAR file via Android Studio, or place it in an `automatic-android-sdk` directory and add the following to your `build.gradle`:
 
 	```gradle
-	compile(name:'automatic-android-sdk-release', ext:'aar')
+	repositories {
+	    mavenCentral()
+	    flatDir {
+		dirs '../automatic-android-sdk'
+	    }
+	}
+	
+	dependencies {
+		compile(name:'automatic-android-sdk-release', ext:'aar')
+	}
 	```
 
 2. Add your client id (found within the Automatic [Developer Apps Manager](https://developer.automatic.com/dashboard))  to your AndroidManifest.xml, inside your `<application>` tag:
