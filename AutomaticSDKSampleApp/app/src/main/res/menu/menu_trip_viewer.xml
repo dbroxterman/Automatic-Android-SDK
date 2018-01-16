@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.automatic.automaticsdksampleapp.TripViewerActivity">
+    <item
+        android:id="@+id/action_trips"
+        android:orderInCategory="100"
+        android:title="@string/action_trips"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_service_binding"
+        android:title="@string/action_service_binding" />
+    <item
+        android:id="@+id/action_send_elm_command"
+        android:orderInCategory="100"
+        android:title="Send ELM Command"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_rpm_toggle"
+        android:orderInCategory="100"
+        android:title="Toggle Realtime RPM"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_disconnect_elm"
+        android:orderInCategory="100"
+        android:title="Disconnect ELM"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title="@string/action_logout"
+        app:showAsAction="never" />
+</menu>

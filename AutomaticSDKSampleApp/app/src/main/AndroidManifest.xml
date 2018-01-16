@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.automatic.sample">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name=".AppClass"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.automatic.sdk.client_id"
+            android:value="@string/automatic_client_id" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".TripViewerActivity"
+            android:label="@string/title_activity_trip_viewer" />
+        <activity
+            android:name=".ServiceBindingActivity"
+            android:label="@string/title_activity_service_binding" />
+
+        <activity
+            android:name=".TestActivity"
+            android:label="TestActivity" />
+
+        <receiver android:name=".MyBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.automatic.ACTION_PING" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".DriveStateService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>

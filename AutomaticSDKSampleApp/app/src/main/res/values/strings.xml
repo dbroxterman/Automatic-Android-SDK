@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Automatic SDK Sample App</string>
+    <string name="action_logout">Logout</string>
+    <string name="token">Invalidate Token</string>
+    <string name="action_trips">Trips</string>
+    <string name="action_service_binding">Service Binding</string>
+    <string name="automatic_client_id">beb485232b1aa6d00a42</string>
+    <string name="title_activity_trip_viewer">TripViewerActivity</string>
+    <string name="title_activity_test">Test</string>
+    <string name="title_activity_service_binding">ServiceBindingActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_bind">Bind</string>
+    <string name="action_unbind">Unbind</string>
+    <string name="action_query_drive_state">Query drive state</string>
+    <string name="elm_connected">ELM connected</string>
+    <string name="connect_elm">Connect ELM</string>
+    <string name="status_is_bound">Status: Bound</string>
+    <string name="status_not_bound">Status: Not bound</string>
+</resources>

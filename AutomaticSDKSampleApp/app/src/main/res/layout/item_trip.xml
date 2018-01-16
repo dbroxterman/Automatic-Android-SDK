@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="trip" type="com.automatic.net.responses.Trip"/>
+    </data>
+    <RelativeLayout
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9dp"
+            tools:text="1/25/2015 5:16pm"
+            android:text="@{trip.getStartTimeFormatted()}"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9dp"
+            tools:text="1/25/2015 5:16pm"
+            android:id="@+id/endDate"
+            android:text="@{trip.getEndTimeFormatted()}"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:text="1350 Sutter St."
+            android:id="@+id/startName"
+            android:text="@{trip.getStartAddressDisplayName()}"
+            android:layout_below="@+id/startDate"
+            android:layout_alignParentLeft="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_alignParentStart="true" />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:text="575 Florida St. Long Name Right Here"
+            android:id="@+id/endName"
+            android:text="@{trip.getEndAddressDisplayName()}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_below="@+id/endDate"
+            android:layout_alignParentRight="true"
+            android:gravity="right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="$16"
+            android:id="@+id/cost"
+            android:text='@{"$" + trip.fuel_cost_usd}'
+            android:layout_alignParentTop="false"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</layout>
